@@ -21,3 +21,47 @@ This repository serves as a **base project template** for building scalable and 
 1. Clone the repository.
 2. Update the `appsettings.json` to fit your environment (database connections, external services, etc.).
 3. Run the project and start building your custom features on top of this architecture.
+4. Add Program.cs below code example;
+
+ ```c#
+    using CosmosBase;
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+    ...
+    
+            builder.Services.AddCosmosBase();
+    ...
+        }
+    }
+```
+5.Use for UnitOfWork with CosmosBase;
+
+```c#
+    [ApiController]
+    [Route("[controller]")]
+    public class CustomerController : Controller
+    {
+        private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
+        public CustomerController(IUnitOfWork<ApplicationDbContext> unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create()
+        {
+            var newCustomer = new Customer
+            {
+                Firstname = "John",
+                Lastname = "Doe",
+                Email = "johndoe@info.com",
+                Phone = "1234567890",
+            };
+            await _unitOfWork.GetRepository<Customer>().AddAsync(newCustomer);
+            await _unitOfWork.SaveChangesAsync();
+            return Ok();
+        }
+    }
+```

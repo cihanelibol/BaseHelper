@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace BaseHelper.Repository.Abstract
+namespace CosmosBase.Repository.Abstract
 {
     public interface IRepository<T>
     {
