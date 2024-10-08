@@ -15,12 +15,14 @@ This repository serves as a **base project template** for building scalable and 
 1. Clone the repository.
 2. Update the `appsettings.json` to fit your environment (database connections, external services, etc.).
     Note. If you want to implemet token validation add the below json section to appsettings.json.
+   ```
       "Jwt": {
          "SecurityKey": "SecurityKeySecurityKeySecurityKeySecurityKey",
          "Issuer": "TokenIssuer",
          "AccessTokenExpiration": 3600,
          "Audiences": [ "MyService" ]
      }
+   ```
 4. Run the project and start building your custom features on top of this architecture.
 5. Add Program.cs below code example;
 
