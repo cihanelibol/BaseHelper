@@ -11,17 +11,18 @@ This repository serves as a **base project template** for building scalable and 
 - **Error Handling and Validation**: Centralized error handling and request validation mechanisms.
 - **Unit Testing Support**: Base setup for unit testing to ensure code reliability.
 
-## Layers:
-1. **Domain**: Contains the core business logic and entities.
-2. **Application**: Handles application-specific business rules, including DTOs, commands, queries, and mappers.
-3. **Infrastructure**: Manages external resources like database access, third-party services, and file systems.
-4. **Presentation**: Web API or MVC frontend to interact with the application.
-
 ## Getting Started:
 1. Clone the repository.
 2. Update the `appsettings.json` to fit your environment (database connections, external services, etc.).
-3. Run the project and start building your custom features on top of this architecture.
-4. Add Program.cs below code example;
+    Note. If you want to implemet token validation add the below json section to appsettings.json.
+      "Jwt": {
+         "SecurityKey": "SecurityKeySecurityKeySecurityKeySecurityKey",
+         "Issuer": "TokenIssuer",
+         "AccessTokenExpiration": 3600,
+         "Audiences": [ "MyService" ]
+     }
+4. Run the project and start building your custom features on top of this architecture.
+5. Add Program.cs below code example;
 
  ```c#
     using CosmosBase;
@@ -32,7 +33,7 @@ This repository serves as a **base project template** for building scalable and 
             var builder = WebApplication.CreateBuilder(args);
     ...
     
-            builder.Services.AddCosmosBase();
+            builder.Services.AddCosmosBase(builder.Configuration);
     ...
         }
     }
